@@ -1,0 +1,19 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AzJobNest.ViewModels.Account;
+
+public class RegisterViewModel
+{
+    [MinLength(3)]
+    public string Name { get; set; }
+    [MinLength(3)]
+    public string Lastname { get; set; }
+    [MinLength(3)]
+    public string UserName { get; set; }
+    [DataType(DataType.EmailAddress)]
+    public string Email { get; set; }
+    [DataType(DataType.Password)]
+    public string Password { get; set; }
+    [DataType(DataType.Password), Compare(nameof(Password))]
+    public string ConfirmPasswor { get; set; }
+}
