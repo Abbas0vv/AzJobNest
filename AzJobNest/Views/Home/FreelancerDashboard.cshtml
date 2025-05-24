@@ -1,17 +1,46 @@
 ﻿<main class="d-flex align-items-center justify-content-center text-center bg-light position-relative overflow-hidden">
-    <!-- Animated background container -->
-    <div class="animated-icons">
-        <i class="fab fa-github"></i>
-        <i class="fab fa-js"></i>
-        <i class="fab fa-html5"></i>
-        <i class="fab fa-css3-alt"></i>
-        <i class="fab fa-react"></i>
-        <i class="fab fa-node-js"></i>
-        <i class="fab fa-python"></i>
-    </div>
+	<!-- Animated background container -->
+	<div class="animated-icons">
+		<i class="fab fa-github"></i>
+		<i class="fab fa-js"></i>
+		<i class="fab fa-html5"></i>
+		<i class="fab fa-css3-alt"></i>
+		<i class="fab fa-react"></i>
+		<i class="fab fa-node-js"></i>
+		<i class="fab fa-python"></i>
+	</div>
 
-    <div class="p-4 rounded shadow bg-white animate__animated animate__fadeIn" style="position: relative; z-index: 10;">
-        <h1 class="fw-bold mb-3">Xoş gəlmisiniz @User.Identity.Name!</h1>
-        <p class="lead mb-4">AzJobNest-də Freelance işlər axtarmağa başlaya bilərsiniz.</p
-    </div>
+	<div id="welcomePopup" class="p-4 rounded shadow animate__animated animate__fadeIn">
+		<h1 class="fw-bold mb-3">Xoş gəlmisiniz @User.Identity.Name!</h1>
+		<p class="lead mb-4">AzJobNest-də Freelance işlər axtarmağa başlaya bilərsiniz.</p>
+	</div>
+
+	<section class="freelancer-dashboard">
+		<div class="dashboard-grid">
+			<!-- Sol Panel -->
+			<div class="dashboard-left">
+				<div class="job-card vip-jobs">
+					<h2>VIP Employer iş təklifləri</h2>
+					<!-- Dinamik kontent buraya -->
+					<p>Burada VIP iş elanları göstəriləcək.</p>
+				</div>
+				<div class="job-card normal-jobs">
+					<h2>İş təklifləri</h2>
+					<!-- Dinamik kontent buraya -->
+					<p>Burada digər iş elanları olacaq.</p>
+				</div>
+			</div>
+
+			<!-- Sağ Panel (MAP) -->
+			<div class="dashboard-right map-section">
+				<h2>Xəritə</h2>
+				<div id="googleMap" style="width:100%;height:400px;">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.421312723409!2d49.851499875825226!3d40.37735407144595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d077c61fef3%3A0xfa4594c97092ca01!2sAF%20Business%20House!5e0!3m2!1saz!2saz!4v1748122834745!5m2!1saz!2saz" 
+					width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
 </main>

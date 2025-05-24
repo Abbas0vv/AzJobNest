@@ -14,6 +14,7 @@ public class HomeController : Controller
                 return RedirectToAction(nameof(FreelancerDashboard));
             else if (User.IsInRole(Role.Employer.ToString()))
                 return RedirectToAction(nameof(EmployerDashboard));
+            else return RedirectToAction(nameof(AdminDashboard));
         }
 
         return View();
@@ -27,6 +28,12 @@ public class HomeController : Controller
 
     [Authorize(Roles = "Employer")]
     public ActionResult EmployerDashboard()
+    {
+        return View();
+    }
+
+    [Authorize(Roles = "Admin,SuperAdmin")]
+    public ActionResult AdminDashboard()
     {
         return View();
     }
