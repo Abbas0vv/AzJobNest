@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AzJobNest.Helpers.Enums;
 
 namespace AzJobNest.ViewModels.Account;
 
@@ -16,4 +17,7 @@ public class RegisterViewModel
     public string Password { get; set; }
     [DataType(DataType.Password), Compare(nameof(Password))]
     public string ConfirmPasswor { get; set; }
+    [Required]
+    public Role SelectedRole { get; set; } // "Employer" və ya "Freelancer"
+
 }

@@ -1,11 +1,12 @@
 ﻿using AzJobNest.ViewModels.Account;
+using Microsoft.AspNetCore.Identity;
 
 namespace AzJobNest.Services.Abstract;
 
 public interface IUserService
 {
-    Task Register(RegisterViewModel model);
-    Task Login(LoginViewModel model);
+    Task<IdentityResult> Register(RegisterViewModel model);
+    Task<bool> Login(LoginViewModel model);
     Task LogOut();
     Task CreateRole();
 }

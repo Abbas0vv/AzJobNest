@@ -4,5 +4,6 @@ public enum Role
 {
     SuperAdmin,
     Admin,
-    User
+    Freelancer,
+    Employer
 }

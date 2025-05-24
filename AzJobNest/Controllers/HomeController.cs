@@ -1,12 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AzJobNest.Helpers.Enums;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace AzJobNest.Controllers
+namespace AzJobNest.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    public ActionResult Index()
     {
-        public IActionResult Index()
+        if (User.Identity.IsAuthenticated)
         {
-            return View();
+            if (User.IsInRole(Role.Freelancer.ToString()))
+                return RedirectToAction(nameof(FreelancerDashboard));
+            else if (User.IsInRole(Role.Employer.ToString()))
+                return RedirectToAction(nameof(EmployerDashboard));
         }
+
+        return View();
+    }
+
+    [Authorize(Roles = "Freelancer")]
+    public ActionResult FreelancerDashboard()
+    {
+        return View();
+    }
+
+    [Authorize(Roles = "Employer")]
+    public ActionResult EmployerDashboard()
+    {
+        return View();
     }
 }

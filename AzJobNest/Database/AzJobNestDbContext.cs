@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AzJobNest.Database;
 
-public class AzJobNetDbContext : IdentityDbContext<AzJobNetUser>
+public class AzJobNestDbContext : IdentityDbContext<AzJobNestUser>
 {
-    public AzJobNetDbContext(DbContextOptions<AzJobNetDbContext> options) : base(options) { }
+    public AzJobNestDbContext(DbContextOptions<AzJobNestDbContext> options) : base(options) { }
 
 
     public DbSet<Notification> Notifications { get; set; }
