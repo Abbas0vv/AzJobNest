@@ -3,9 +3,8 @@
 <main style="min-height: 75vh;">
 	<div class="container">
 
-
 		<div class="row justify-content-center align-items-center" style="min-height: 75vh;">
-			<!-- Sol tərəf: Form -->
+			<!-- Left side: Form -->
 			<div class="col-12 col-md-5 shadow p-4 bg-white rounded mx-3 my-3">
 
 				<div class="animated-icons">
@@ -18,66 +17,55 @@
 					<i class="fab fa-python"></i>
 				</div>
 
-				<h2 class="mb-4 text-center">Qeydiyyat</h2>
+				<h2 class="mb-4 text-center">Register</h2>
 				<form asp-action="Register" asp-controller="Account" method="post" id="registerForm" novalidate>
 					<div asp-validation-summary="All" class="text-danger mb-3"></div>
 
 					<div class="mb-3">
-						<label asp-for="Name" class="form-label">Ad</label>
-						<input asp-for="Name" class="form-control" placeholder="Adınızı daxil edin" />
-						<span asp-validation-for="Name" class="invalid-feedback d-block"></span>
-					</div>
-
-					<div class="mb-3">
-						<label asp-for="Lastname" class="form-label">Soyad</label>
-						<input asp-for="Lastname" class="form-control" placeholder="Soyadınızı daxil edin" />
-						<span asp-validation-for="Lastname" class="invalid-feedback d-block"></span>
-					</div>
-
-					<div class="mb-3">
-						<label asp-for="UserName" class="form-label">İstifadəçi adı</label>
-						<input asp-for="UserName" class="form-control" placeholder="İstifadəçi adınızı daxil edin" />
+						<label asp-for="UserName" class="form-label">Username</label>
+						<input asp-for="UserName" class="form-control" />
 						<span asp-validation-for="UserName" class="invalid-feedback d-block"></span>
 					</div>
 
 					<div class="mb-3">
-						<label asp-for="Email" class="form-label">Email ünvanı</label>
-						<input asp-for="Email" class="form-control" placeholder="email@example.com" />
+						<label asp-for="Email" class="form-label">Email</label>
+						<input asp-for="Email" class="form-control" />
 						<span asp-validation-for="Email" class="invalid-feedback d-block"></span>
 					</div>
 
 					<div class="mb-3">
-						<label asp-for="Password" class="form-label">Parol</label>
-						<input asp-for="Password" class="form-control" placeholder="Ən az 6 simvol" />
+						<label asp-for="Password" class="form-label">Password</label>
+						<input asp-for="Password" class="form-control" />
 						<span asp-validation-for="Password" class="invalid-feedback d-block"></span>
 					</div>
 
 					<div class="mb-3">
-						<label asp-for="ConfirmPasswor" class="form-label">Parolu təsdiqlə</label>
-						<input asp-for="ConfirmPasswor" class="form-control" placeholder="Parolu yenidən daxil edin" />
+						<label asp-for="ConfirmPasswor" class="form-label">Confirm Password</label>
+						<input asp-for="ConfirmPasswor" class="form-control" />
 						<span asp-validation-for="ConfirmPasswor" class="invalid-feedback d-block"></span>
 					</div>
+
 					<div class="mb-3">
-						<label asp-for="SelectedRole" class="form-label">Siz...</label>
+						<label asp-for="SelectedRole" class="form-label">Select your role</label>
 						<select asp-for="SelectedRole" class="form-select">
-							<option value="">-- Seçin --</option>
+							<option value="">-- Select --</option>
 							<option value="Freelancer">Freelancer</option>
-							<option value="Employer">İşəgötürən</option>
+							<option value="Employer">Employer</option>
 						</select>
 						<span asp-validation-for="SelectedRole" class="text-danger"></span>
 					</div>
 
-					<button type="submit" class="btn btn-primary w-100">Qeydiyyat</button>
+					<button type="submit" class="btn btn-primary w-100">Register</button>
 				</form>
 			</div>
 
-			<!-- Sağ tərəf: Animasiya ilə -->
+			<!-- Right side: With animation -->
 			<div class="col-12 col-md-6 mx-3 my-3">
 				<div class="p-4 bg-light rounded h-100 d-flex flex-column justify-content-center align-items-center text-center">
-					<h3>Xoş gəldiniz!</h3>
-					<p>Qeydiyyat formunu doldurun və saytda tam funksionallıq əldə edin.</p>
+					<h3>Welcome!</h3>
+					<p>Fill out the registration form to get full access to the site.</p>
 
-					<!-- Burada Lottie animasiyasını əlavə et -->
+					<!-- Lottie animation -->
 					<lottie-player src="https://assets3.lottiefiles.com/packages/lf20_5ngs2ksb.json"
 								   background="transparent"
 								   speed="1"

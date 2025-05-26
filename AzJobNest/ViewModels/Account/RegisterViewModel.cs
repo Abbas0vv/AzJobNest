@@ -6,10 +6,6 @@ namespace AzJobNest.ViewModels.Account;
 public class RegisterViewModel
 {
     [MinLength(3)]
-    public string Name { get; set; }
-    [MinLength(3)]
-    public string Lastname { get; set; }
-    [MinLength(3)]
     public string UserName { get; set; }
     [DataType(DataType.EmailAddress)]
     public string Email { get; set; }

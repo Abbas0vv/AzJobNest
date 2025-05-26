@@ -29,7 +29,7 @@ public class UserService : IUserService
             var result = await _userManager.CheckPasswordAsync(user, model.Password);
             if (result)
             {
-                await _signInManager.SignInAsync(user, true);
+                await _signInManager.SignInAsync(user, model.RememberMe);
                 return true;
             }
         }
@@ -46,8 +46,6 @@ public class UserService : IUserService
     {
         var user = new AzJobNestUser()
         {
-            Name = model.Name,
-            LastName = model.Lastname,
             UserName = model.UserName,
             Email = model.Email,
         };
@@ -56,7 +54,6 @@ public class UserService : IUserService
         if (result.Succeeded)
         {
             await _userManager.AddToRoleAsync(user, model.SelectedRole.ToString());
-            await _signInManager.SignInAsync(user, true);
         }
 
         return result;
