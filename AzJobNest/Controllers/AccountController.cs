@@ -1,4 +1,5 @@
 ﻿using AzJobNest.Services.Abstract;
+using AzJobNest.ViewModels;
 using AzJobNest.ViewModels.Account;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,15 +16,20 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> Register()
     {
-        return View();
+        var model = new BaseViewModel
+        {
+            RegisterViewModel = new BasicRegisterViewModel()
+        };
+        return View(model);
+
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(RegisterViewModel model)
+    public async Task<IActionResult> Register(BaseViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
 
-        var result = await _userService.Register(model);
+        var result = await _userService.Register(model.RegisterViewModel);
 
         if (!result.Succeeded)
         {
@@ -40,22 +46,30 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> Login()
     {
-        return View();
-    }
-    [HttpPost]
-    public async Task<IActionResult> Login(LoginViewModel model)
-    {
-        if (!ModelState.IsValid) return View(model);
+        var model = new BaseViewModel
+        {
+            LoginViewModel = new LoginViewModel()
+        };
+        return View(model);
 
-        var loginSuccess = await _userService.Login(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Login(BaseViewModel model)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var loginSuccess = await _userService.Login(model.LoginViewModel);
         if (!loginSuccess)
         {
-            ModelState.AddModelError(string.Empty, "E-poçt və ya şifrə yanlışdır.");
+            ModelState.AddModelError(string.Empty, "Email or password is incorrect.");
             return View(model);
         }
 
         return RedirectToAction("Index", "Home");
     }
+
 
     [HttpGet]
     public async Task<IActionResult> LogOut()

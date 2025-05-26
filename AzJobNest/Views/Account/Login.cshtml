@@ -1,4 +1,4 @@
-﻿@model LoginViewModel
+﻿@model BaseViewModel
 @{
 	ViewData["Title"] = "Login";
 }
@@ -24,15 +24,15 @@
 					<div asp-validation-summary="All" class="text-danger mb-3"></div>
 
 					<div class="mb-3">
-						<label asp-for="Email" class="form-label"></label>
-						<input asp-for="Email" class="form-control" />
-						<span asp-validation-for="Email" class="text-danger"></span>
+						<label asp-for="@Model.LoginViewModel.Email" class="form-label"></label>
+						<input asp-for="@Model.LoginViewModel.Email" class="form-control" />
+						<span asp-validation-for="@Model.LoginViewModel.Email" class="text-danger"></span>
 					</div>
 
 					<div class="mb-3 position-relative">
-						<label asp-for="Password" class="form-label"></label>
-						<input asp-for="Password" class="form-control pe-5" type="password" id="passwordInput" />
-						<span asp-validation-for="Password" class="text-danger"></span>
+						<label asp-for="@Model.LoginViewModel.Password" class="form-label"></label>
+						<input asp-for="@Model.LoginViewModel.Password" class="form-control pe-5" type="password" id="passwordInput" />
+						<span asp-validation-for="@Model.LoginViewModel.Password" class="text-danger"></span>
 
 						<!-- Show Password Toggle inside input -->
 						<button type="button"
@@ -44,8 +44,8 @@
 					</div>
 
 					<div class="mb-3 form-check">
-						<input asp-for="RememberMe" class="form-check-input" />
-						<label asp-for="RememberMe" class="form-check-label"></label>
+						<input asp-for="@Model.LoginViewModel.RememberMe" class="form-check-input" />
+						<label asp-for="@Model.LoginViewModel.RememberMe" class="form-check-label"></label>
 					</div>
 
 					<button type="submit" class="btn btn-primary w-100">Sign In</button>
@@ -81,10 +81,12 @@
 			passwordInput.type = 'text';
 			toggleIcon.classList.remove('fa-eye');
 			toggleIcon.classList.add('fa-eye-slash');
-		} else {
+		} 
+		else {
 			passwordInput.type = 'password';
 			toggleIcon.classList.remove('fa-eye-slash');
 			toggleIcon.classList.add('fa-eye');
 		}
 	}
 </script>
+ 

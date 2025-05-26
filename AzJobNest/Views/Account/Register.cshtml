@@ -1,4 +1,4 @@
-﻿@model RegisterViewModel
+﻿@model BaseViewModel
 
 <main style="min-height: 75vh;">
 	<div class="container">
@@ -22,37 +22,37 @@
 					<div asp-validation-summary="All" class="text-danger mb-3"></div>
 
 					<div class="mb-3">
-						<label asp-for="UserName" class="form-label">Username</label>
-						<input asp-for="UserName" class="form-control" />
-						<span asp-validation-for="UserName" class="invalid-feedback d-block"></span>
+						<label asp-for="@Model.RegisterViewModel.UserName" class="form-label">Username</label>
+						<input asp-for="@Model.RegisterViewModel.UserName" class="form-control" />
+						<span asp-validation-for="@Model.RegisterViewModel.UserName" class="invalid-feedback d-block"></span>
 					</div>
 
 					<div class="mb-3">
-						<label asp-for="Email" class="form-label">Email</label>
-						<input asp-for="Email" class="form-control" />
-						<span asp-validation-for="Email" class="invalid-feedback d-block"></span>
+						<label asp-for="@Model.RegisterViewModel.Email" class="form-label">Email</label>
+						<input asp-for="@Model.RegisterViewModel.Email" class="form-control" />
+						<span asp-validation-for="@Model.RegisterViewModel.Email" class="invalid-feedback d-block"></span>
 					</div>
 
 					<div class="mb-3">
-						<label asp-for="Password" class="form-label">Password</label>
-						<input asp-for="Password" class="form-control" />
-						<span asp-validation-for="Password" class="invalid-feedback d-block"></span>
+						<label asp-for="@Model.RegisterViewModel.Password" class="form-label">Password</label>
+						<input asp-for="@Model.RegisterViewModel.Password" class="form-control" />
+						<span asp-validation-for="@Model.RegisterViewModel.Password" class="invalid-feedback d-block"></span>
 					</div>
 
 					<div class="mb-3">
-						<label asp-for="ConfirmPasswor" class="form-label">Confirm Password</label>
-						<input asp-for="ConfirmPasswor" class="form-control" />
-						<span asp-validation-for="ConfirmPasswor" class="invalid-feedback d-block"></span>
+						<label asp-for="@Model.RegisterViewModel.ConfirmPasswor" class="form-label">Confirm Password</label>
+						<input asp-for="@Model.RegisterViewModel.ConfirmPasswor" class="form-control" />
+						<span asp-validation-for="@Model.RegisterViewModel.ConfirmPasswor" class="invalid-feedback d-block"></span>
 					</div>
 
 					<div class="mb-3">
-						<label asp-for="SelectedRole" class="form-label">Select your role</label>
-						<select asp-for="SelectedRole" class="form-select">
+						<label asp-for="@Model.RegisterViewModel.SelectedRole" class="form-label">Select your role</label>
+						<select asp-for="@Model.RegisterViewModel.SelectedRole" class="form-select">
 							<option value="">-- Select --</option>
 							<option value="Freelancer">Freelancer</option>
 							<option value="Employer">Employer</option>
 						</select>
-						<span asp-validation-for="SelectedRole" class="text-danger"></span>
+						<span asp-validation-for="@Model.RegisterViewModel.SelectedRole" class="text-danger"></span>
 					</div>
 
 					<button type="submit" class="btn btn-primary w-100">Register</button>

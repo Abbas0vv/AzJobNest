@@ -5,7 +5,7 @@ namespace AzJobNest.Services.Abstract;
 
 public interface IUserService
 {
-    Task<IdentityResult> Register(RegisterViewModel model);
+    Task<IdentityResult> Register(BasicRegisterViewModel model);
     Task<bool> Login(LoginViewModel model);
     Task LogOut();
     Task CreateRole();

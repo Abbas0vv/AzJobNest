@@ -19,6 +19,7 @@ public class Program
             .AddEntityFrameworkStores<AzJobNestDbContext>();
         builder.Services.AddRazorPages();
 
+        builder.Services.AddScoped<IImageService, ImageService>();
         builder.Services.AddScoped<IFileService, FileService>();
         builder.Services.AddScoped<IUserService, UserService>();
 

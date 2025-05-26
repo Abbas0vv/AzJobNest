@@ -7,3 +7,4 @@ public interface IFileService
     void DeleteFile(string path);
     bool IsValidFile(IFormFile file);
 }
+

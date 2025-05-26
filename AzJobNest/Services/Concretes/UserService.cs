@@ -2,6 +2,7 @@
 using AzJobNest.Helpers.Enums;
 using AzJobNest.Services.Abstract;
 using AzJobNest.ViewModels.Account;
+using AzJobNest.ViewModels.Account.Advanced;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -42,7 +43,7 @@ public class UserService : IUserService
         await _signInManager.SignOutAsync();
     }
 
-    public async Task<IdentityResult> Register(RegisterViewModel model)
+    public async Task<IdentityResult> Register(BasicRegisterViewModel model)
     {
         var user = new AzJobNestUser()
         {
@@ -58,6 +59,11 @@ public class UserService : IUserService
 
         return result;
     }
+
+    //public async Task<IdentityResult> AdvancedProfile(string id, CreateAdvancedProfileViewModel model)
+    //{
+    //    var user = await _userManager.FindByIdAsync(id);
+    //}
 
     public async Task CreateRole()
     {
