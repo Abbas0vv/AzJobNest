@@ -1,0 +1,111 @@
+﻿@model EditProfileViewModel
+
+@{
+	ViewData["Title"] = "Complete Your Profile";
+}
+
+<div class="container py-5">
+	<div class="row justify-content-center">
+		<div class="col-md-8 col-lg-6">
+			<div class="card shadow-sm">
+				<div class="card-header bg-white border-bottom-0">
+					<h4 class="mb-0 text-center">Complete Your Profile</h4>
+				</div>
+				<div class="card-body">
+					<form asp-action="CreateAdvancedProfile" method="post" enctype="multipart/form-data">
+						<!-- Account Information Section -->
+						<div class="mb-4">
+							<h5 class="mb-3 border-bottom pb-2">Account Information</h5>
+							<div class="mb-3">
+								<label asp-for="UserName" class="form-label">Username</label>
+								<input asp-for="UserName" class="form-control" placeholder="Choose a username">
+								<span asp-validation-for="UserName" class="text-danger small"></span>
+							</div>
+							<div class="mb-3">
+								<label asp-for="Email" class="form-label">Email Address</label>
+								<input asp-for="Email" type="email" class="form-control" placeholder="your@email.com" readonly>
+								<span asp-validation-for="Email" class="text-danger small"></span>
+							</div>
+						</div>
+
+						<!-- Profile Picture Section -->
+						<div class="mb-4 text-center">
+							<div class="position-relative d-inline-block">
+								@if (Model.ProfilePicture is null)
+								{
+									<img id="profilePicturePreview" src="~/Client/images/DefaultProfilePicture.png"
+										 class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;"
+										 alt="Profile Picture">
+								}
+								else
+								{
+									<img id="profilePicturePreview" src="~/Uploads/Account/@Model.ProfilePicture"
+										 class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;"
+										 alt="Profile Picture">
+								}
+								<label for="profilePictureUpload" class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle"
+									   style="width: 40px; height: 40px; line-height: 40px;">
+									<i class="fas fa-camera"></i>
+								</label>
+								<input type="file" id="profilePictureUpload" name="profilePictureFile"
+									   class="d-none" accept="image/*" onchange="previewProfilePicture(this)">
+							</div>
+							<input type="hidden" asp-for="ProfilePicture" />
+							<div class="mt-2">
+								<small class="text-muted">Upload a profile picture (max 2MB)</small>
+							</div>
+						</div>
+
+						<!-- Rest of your existing form remains the same -->
+						<!-- Personal Information Section -->
+						<div class="mb-4">
+							<h5 class="mb-3 border-bottom pb-2">Personal Information</h5>
+							<div class="row g-3">
+								<!-- ... existing personal info fields ... -->
+							</div>
+						</div>
+
+						<!-- ... rest of your existing form ... -->
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+		// Profile picture preview
+		function previewProfilePicture(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					document.getElementById('profilePicturePreview').src = e.target.result;
+					// You would typically upload the file here via AJAX and update the hidden field
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		// CV upload handling
+		document.getElementById('uploadCvBtn').addEventListener('click', function() {
+			document.getElementById('cvUpload').click();
+		});
+
+		document.getElementById('cvUpload').addEventListener('change', function() {
+			if (this.files && this.files[0]) {
+				// Here you would upload the file via AJAX and update the CV field
+				// For now, we'll just show the filename
+				const fileName = this.files[0].name;
+				document.getElementById('CV').value = fileName;
+			}
+		});
+
+		// Initialize date picker with max date (18 years ago)
+		document.addEventListener('DOMContentLoaded', function() {
+			const today = new Date();
+			const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+			document.getElementById('BirthDate').max = maxDate.toISOString().split('T')[0];
+		});
+	</script>
+}

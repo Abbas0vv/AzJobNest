@@ -19,9 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Cilent\" />
     <Folder Include="wwwroot\Admin\" />
-    <Folder Include="wwwroot\Uploads\" />
+    <Folder Include="wwwroot\Uploads\Account\" />
   </ItemGroup>
 
 </Project>

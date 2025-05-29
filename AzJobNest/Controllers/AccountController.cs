@@ -16,20 +16,15 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> Register()
     {
-        var model = new BaseViewModel
-        {
-            RegisterViewModel = new BasicRegisterViewModel()
-        };
-        return View(model);
-
+        return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(BaseViewModel model)
+    public async Task<IActionResult> Register(RegisterViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
 
-        var result = await _userService.Register(model.RegisterViewModel);
+        var result = await _userService.Register(model);
 
         if (!result.Succeeded)
         {
@@ -46,21 +41,16 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> Login()
     {
-        var model = new BaseViewModel
-        {
-            LoginViewModel = new LoginViewModel()
-        };
-        return View(model);
-
+        return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(BaseViewModel model)
+    public async Task<IActionResult> Login(LoginViewModel model)
     {
         if (!ModelState.IsValid)
             return View(model);
 
-        var loginSuccess = await _userService.Login(model.LoginViewModel);
+        var loginSuccess = await _userService.Login(model);
         if (!loginSuccess)
         {
             ModelState.AddModelError(string.Empty, "Email or password is incorrect.");
@@ -76,6 +66,13 @@ public class AccountController : Controller
     {
         await _userService.LogOut();
         return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EditProfile()
+    {
+
+        return View();
     }
 
     [HttpGet]

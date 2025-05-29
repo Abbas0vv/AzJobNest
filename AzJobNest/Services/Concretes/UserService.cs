@@ -43,7 +43,7 @@ public class UserService : IUserService
         await _signInManager.SignOutAsync();
     }
 
-    public async Task<IdentityResult> Register(BasicRegisterViewModel model)
+    public async Task<IdentityResult> Register(RegisterViewModel model)
     {
         var user = new AzJobNestUser()
         {

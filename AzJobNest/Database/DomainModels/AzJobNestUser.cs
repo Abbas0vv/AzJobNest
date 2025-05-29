@@ -5,18 +5,15 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AzJobNest.Database.DomainModels;
 
-public class AzJobNestUser : IdentityUser, IEntity
+public class AzJobNestUser : IdentityUser
 {
-    public int Id { get; set; }
 
-    [Required]
     [MinLength(2), MaxLength(50)]
     public string? Name { get; set; }
 
     [MinLength(2), MaxLength(50)]
     public string? MiddleName { get; set; }
 
-    [Required]
     [MinLength(2), MaxLength(50)]
     public string? LastName { get; set; }
 
@@ -43,5 +40,6 @@ public class AzJobNestUser : IdentityUser, IEntity
     [DataType(DataType.Date)]
     public DateTime? BirthDate { get; set; }
 
-    public DateTime CreatedDate { get; set; } = DateTime.Now;
+    public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 }
+

@@ -3,7 +3,7 @@ using AzJobNest.Helpers.Enums;
 
 namespace AzJobNest.ViewModels.Account;
 
-public class BasicRegisterViewModel
+public class RegisterViewModel
 {
     [MinLength(3)]
     public string UserName { get; set; }
