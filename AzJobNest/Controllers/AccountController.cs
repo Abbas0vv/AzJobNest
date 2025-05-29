@@ -1,6 +1,8 @@
-﻿using AzJobNest.Services.Abstract;
+﻿using System.Security.Claims;
+using AzJobNest.Services.Abstract;
 using AzJobNest.ViewModels;
 using AzJobNest.ViewModels.Account;
+using AzJobNest.ViewModels.Account.Advanced;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzJobNest.Controllers;
@@ -71,8 +73,44 @@ public class AccountController : Controller
     [HttpGet]
     public async Task<IActionResult> EditProfile()
     {
+        var user = await _userService.GetCurrentUserAsync(User);
+        if (user == null) return RedirectToAction(nameof(Login));
 
-        return View();
+        var model = new EditProfileViewModel
+        {
+            UserName = user.UserName,
+            Name = user.Name,
+            MiddleName = user.MiddleName,
+            LastName = user.LastName,
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
+            LinkedInUrl = user.LinkedInUrl,
+            GitHubUrl = user.GitHubUrl,
+            Gender = user.Gender,
+            BirthDate = user.BirthDate,
+            ProfilePicture = user.ProfilePicture,
+            CV = user.CV
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditProfile(EditProfileViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+        var result = await _userService.UpdateProfileAsync(User, model);
+        if (!result.Succeeded)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return View(model);
+        }
+
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpGet]

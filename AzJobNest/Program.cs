@@ -13,7 +13,7 @@ public class Program
 
         var connectionString = builder.Configuration.GetConnectionString("Default");
         builder.Services.AddDbContext<AzJobNestDbContext>(options =>
-            options.UseNpgsql(connectionString));
+            options.UseSqlServer(connectionString));
 
         builder.Services.AddIdentity<AzJobNestUser, IdentityRole>()
             .AddEntityFrameworkStores<AzJobNestDbContext>();

@@ -6,6 +6,7 @@ using AzJobNest.ViewModels.Account.Advanced;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Security.Claims;
 
 namespace AzJobNest.Services.Concretes;
 
@@ -14,12 +15,20 @@ public class UserService : IUserService
     private readonly UserManager<AzJobNestUser> _userManager;
     private readonly SignInManager<AzJobNestUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly IImageService _imageService;
+    private readonly IFileService _fileService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    private const string IMAGE_FOLDER_NAME = "Uploads/ProfilePictures";
+    private const string RESUME_FOLDER_NAME = "Uploads/Resumes";
 
-    public UserService(UserManager<AzJobNestUser> userManager, SignInManager<AzJobNestUser> signInManager, RoleManager<IdentityRole> roleManager)
+    public UserService(UserManager<AzJobNestUser> userManager, SignInManager<AzJobNestUser> signInManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment, IImageService imageService, IFileService fileService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _roleManager = roleManager;
+        _webHostEnvironment = webHostEnvironment;
+        _imageService = imageService;
+        _fileService = fileService;
     }
 
     public async Task<bool> Login(LoginViewModel model)
@@ -60,11 +69,44 @@ public class UserService : IUserService
         return result;
     }
 
-    //public async Task<IdentityResult> AdvancedProfile(string id, CreateAdvancedProfileViewModel model)
-    //{
-    //    var user = await _userManager.FindByIdAsync(id);
-    //}
+    public async Task<AzJobNestUser> GetCurrentUserAsync(ClaimsPrincipal user)
+    {
+        return await _userManager.GetUserAsync(user);
+    }
+    public async Task<IdentityResult> UpdateProfileAsync(ClaimsPrincipal userPrincipal, EditProfileViewModel model)
+    {
+        var user = await _userManager.GetUserAsync(userPrincipal);
+        if (user == null)
+        {
+            return IdentityResult.Failed(new IdentityError { Description = "User not found" });
+        }
 
+        // Update basic info
+        user.UserName = model.UserName;
+
+        // Update profile info
+        user.Name = model.Name;
+        user.MiddleName = model.MiddleName;
+        user.LastName = model.LastName;
+        user.PhoneNumber = model.PhoneNumber;
+        user.LinkedInUrl = model.LinkedInUrl;
+        user.GitHubUrl = model.GitHubUrl;
+        user.Gender = model.Gender;
+        user.BirthDate = model.BirthDate;
+
+        // Handle file uploads
+        if (model.ProfilePictureFile != null && model.ProfilePictureFile.Length > 0)
+        {
+            user.ProfilePicture = _imageService.CreateImage(model.ProfilePictureFile, _webHostEnvironment.WebRootPath, IMAGE_FOLDER_NAME);
+        }
+
+        if (model.CVFile != null && model.CVFile.Length > 0)
+        {
+            user.CV = _fileService.CreateFile(model.CVFile, _webHostEnvironment.WebRootPath, IMAGE_FOLDER_NAME);
+        }
+
+        return await _userManager.UpdateAsync(user);
+    }
     public async Task CreateRole()
     {
         foreach (var item in Enum.GetValues(typeof(Role)))

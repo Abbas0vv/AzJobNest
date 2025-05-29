@@ -1,111 +1,221 @@
 ﻿@model EditProfileViewModel
 
 @{
-	ViewData["Title"] = "Complete Your Profile";
+    ViewData["Title"] = "Complete Your Profile";
 }
 
-<div class="container py-5">
-	<div class="row justify-content-center">
-		<div class="col-md-8 col-lg-6">
-			<div class="card shadow-sm">
-				<div class="card-header bg-white border-bottom-0">
-					<h4 class="mb-0 text-center">Complete Your Profile</h4>
-				</div>
-				<div class="card-body">
-					<form asp-action="CreateAdvancedProfile" method="post" enctype="multipart/form-data">
-						<!-- Account Information Section -->
-						<div class="mb-4">
-							<h5 class="mb-3 border-bottom pb-2">Account Information</h5>
-							<div class="mb-3">
-								<label asp-for="UserName" class="form-label">Username</label>
-								<input asp-for="UserName" class="form-control" placeholder="Choose a username">
-								<span asp-validation-for="UserName" class="text-danger small"></span>
-							</div>
-							<div class="mb-3">
-								<label asp-for="Email" class="form-label">Email Address</label>
-								<input asp-for="Email" type="email" class="form-control" placeholder="your@email.com" readonly>
-								<span asp-validation-for="Email" class="text-danger small"></span>
-							</div>
-						</div>
+<div class="container-fluid py-5" style="background: linear-gradient(135deg, #4b6cb7, #663399, #00b4d8, #00ffff); min-height: 100vh;">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-10 col-xl-8">
+            <!-- Wider column -->
+            <div class="card shadow-lg">
+                <!-- Increased shadow -->
+                <div class="card-header bg-white border-bottom-0">
+                    <h4 class="mb-0 text-center">Complete Your Profile</h4>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Added padding -->
+                    <form method="post" enctype="multipart/form-data">
+                        <!-- Profile Picture Section -->
+                        <div class="mb-4 text-center">
+                            <div class="position-relative d-inline-block">
+                                @if (Model.ProfilePicture is null)
+                                {
+                                    <img id="profilePicturePreview" src="~/Client/images/DefaultProfilePicture.png"
+                                         class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #dee2e6;"
+                                         alt="Profile Picture">
+                                }
+                                else
+                                {
+                                    <img id="profilePicturePreview" src="~/Uploads/Account/@Model.ProfilePicture"
+                                         class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #dee2e6;"
+                                         alt="Profile Picture">
+                                }
+                                <label for="profilePictureUpload" class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle"
+                                       style="width: 40px; height: 40px; line-height: 40px;">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" id="profilePictureUpload" name="profilePictureFile"
+                                       class="d-none" accept="image/*" onchange="previewProfilePicture(this)">
+                            </div>
+                            <input type="hidden" asp-for="ProfilePicture" />
+                            <div class="mt-2">
+                                <small class="text-muted">Upload a profile picture (max 2MB)</small>
+                            </div>
+                        </div>
 
-						<!-- Profile Picture Section -->
-						<div class="mb-4 text-center">
-							<div class="position-relative d-inline-block">
-								@if (Model.ProfilePicture is null)
-								{
-									<img id="profilePicturePreview" src="~/Client/images/DefaultProfilePicture.png"
-										 class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;"
-										 alt="Profile Picture">
-								}
-								else
-								{
-									<img id="profilePicturePreview" src="~/Uploads/Account/@Model.ProfilePicture"
-										 class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;"
-										 alt="Profile Picture">
-								}
-								<label for="profilePictureUpload" class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle"
-									   style="width: 40px; height: 40px; line-height: 40px;">
-									<i class="fas fa-camera"></i>
-								</label>
-								<input type="file" id="profilePictureUpload" name="profilePictureFile"
-									   class="d-none" accept="image/*" onchange="previewProfilePicture(this)">
-							</div>
-							<input type="hidden" asp-for="ProfilePicture" />
-							<div class="mt-2">
-								<small class="text-muted">Upload a profile picture (max 2MB)</small>
-							</div>
-						</div>
+                        <!-- Account Information Section -->
+                        <div class="mb-4">
+                            <h5 class="mb-3 border-bottom pb-2">Account Information</h5>
+                            <div class="mb-3">
+                                <label asp-for="UserName" class="form-label">Username</label>
+                                <input asp-for="UserName" class="form-control">
+                                <span asp-validation-for="UserName" class="text-danger small"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Email" class="form-label">Email Address</label>
+                                <input asp-for="Email" type="email" class="form-control" value="@Model.Email" readonly style="color: grey; background-color: #f8f9fa;">
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+                        </div>
 
-						<!-- Rest of your existing form remains the same -->
-						<!-- Personal Information Section -->
-						<div class="mb-4">
-							<h5 class="mb-3 border-bottom pb-2">Personal Information</h5>
-							<div class="row g-3">
-								<!-- ... existing personal info fields ... -->
-							</div>
-						</div>
+                        <!-- Personal Information Section -->
+                        <div class="mb-4">
+                            <h5 class="mb-3 border-bottom pb-2">Personal Information</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Name" class="form-label">First Name</label>
+                                        <input asp-for="Name" class="form-control">
+                                        <span asp-validation-for="Name" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="MiddleName" class="form-label">Middle Name (Optional)</label>
+                                        <input asp-for="MiddleName" class="form-control">
+                                        <span asp-validation-for="MiddleName" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="LastName" class="form-label">Last Name</label>
+                                        <input asp-for="LastName" class="form-control">
+                                        <span asp-validation-for="LastName" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                                        <input asp-for="PhoneNumber" class="form-control" id="phoneNumberInput">
+                                        <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Gender" class="form-label">Gender (Optional)</label>
+                                        <select asp-for="Gender" class="form-select" asp-items="Html.GetEnumSelectList<Gender>()">
+                                            <option value="">Select Gender</option>
+                                        </select>
+                                        <span asp-validation-for="Gender" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="BirthDate" class="form-label">Birth Date</label>
+                                        <input asp-for="BirthDate" type="date" class="form-control">
+                                        <span asp-validation-for="BirthDate" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-						<!-- ... rest of your existing form ... -->
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <!-- Professional Links Section -->
+                        <div class="mb-4">
+                            <h5 class="mb-3 border-bottom pb-2">Professional Links</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="LinkedInUrl" class="form-label">LinkedIn Profile (Optional)</label>
+                                        <input asp-for="LinkedInUrl" class="form-control">
+                                        <span asp-validation-for="LinkedInUrl" class="text-danger small"></span>
+                                        <small class="text-muted">Example: https://linkedin.com/in/yourname</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="GitHubUrl" class="form-label">GitHub Profile (Optional)</label>
+                                        <input asp-for="GitHubUrl" class="form-control">
+                                        <span asp-validation-for="GitHubUrl" class="text-danger small"></span>
+                                        <small class="text-muted">Example: https://github.com/yourname</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CV/Resume Section -->
+                        <div class="mb-4">
+                            <h5 class="mb-3 border-bottom pb-2">CV/Resume</h5>
+                            <div class="input-group input-group-lg">
+                                <!-- Larger input group -->
+                                <input asp-for="CV" type="text" class="form-control" readonly>
+                                <button class="btn btn-outline-primary" type="button" id="uploadCvBtn" style="border-color: #4b6cb7; color: #4b6cb7;">
+                                    <i class="fas fa-upload me-1"></i> Upload
+                                </button>
+                                <input asp-for="CV" type="file" id="cvUpload" name="CVFile" class="d-none">
+                            </div>
+                            <span asp-validation-for="CV" class="text-danger small"></span>
+                            <small class="text-muted">Upload your CV (PDF or Word document, max 5MB)</small>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg py-3" style="background: linear-gradient(to right, #4b6cb7, #663399); border: none;">
+                                <i class="fas fa-save me-2"></i> Save Profile
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-@section Scripts {
-	<script>
-		// Profile picture preview
-		function previewProfilePicture(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-				reader.onload = function (e) {
-					document.getElementById('profilePicturePreview').src = e.target.result;
-					// You would typically upload the file here via AJAX and update the hidden field
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const phoneInput = document.getElementById('phoneNumberInput');
+        const countryCode = '(+994) ';
 
-		// CV upload handling
-		document.getElementById('uploadCvBtn').addEventListener('click', function() {
-			document.getElementById('cvUpload').click();
-		});
+        // Initialize with country code if empty
+        if (!phoneInput.value) {
+            phoneInput.value = countryCode;
+        }
 
-		document.getElementById('cvUpload').addEventListener('change', function() {
-			if (this.files && this.files[0]) {
-				// Here you would upload the file via AJAX and update the CV field
-				// For now, we'll just show the filename
-				const fileName = this.files[0].name;
-				document.getElementById('CV').value = fileName;
-			}
-		});
+        // Prevent modification of country code
+        phoneInput.addEventListener('keydown', function(e) {
+            // If trying to delete the country code
+            if (e.key === 'Backspace' && phoneInput.selectionStart <= countryCode.length) {
+                e.preventDefault();
+            }
 
-		// Initialize date picker with max date (18 years ago)
-		document.addEventListener('DOMContentLoaded', function() {
-			const today = new Date();
-			const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
-			document.getElementById('BirthDate').max = maxDate.toISOString().split('T')[0];
-		});
-	</script>
-}
+            // If trying to type before country code
+            if (phoneInput.selectionStart < countryCode.length && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
+                phoneInput.setSelectionRange(countryCode.length, countryCode.length);
+            }
+        });
+
+        // Ensure country code stays when input loses focus
+        phoneInput.addEventListener('blur', function() {
+            if (!phoneInput.value.startsWith(countryCode)) {
+                phoneInput.value = countryCode + phoneInput.value.replace(/^\(\+994\)\s*/g, '');
+            }
+        });
+
+        // Format the number as user types
+        phoneInput.addEventListener('input', function() {
+            // Get the value without country code
+            let value = phoneInput.value.substring(countryCode.length);
+
+            // Remove all non-digit characters
+            value = value.replace(/\D/g, '');
+
+            // Format the remaining digits
+            let formattedValue = '';
+            if (value.length > 0) {
+                formattedValue = value.substring(0, 2);
+                if (value.length > 2) {
+                    formattedValue += '-' + value.substring(2, 5);
+                }
+                if (value.length > 5) {
+                    formattedValue += '-' + value.substring(5, 7);
+                }
+                if (value.length > 7) {
+                    formattedValue += '-' + value.substring(7, 9);
+                }
+            }
+
+            // Set the formatted value with country code
+            phoneInput.value = countryCode + formattedValue;
+        });
+    });
+</script>

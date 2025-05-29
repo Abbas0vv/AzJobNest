@@ -32,11 +32,12 @@ public class EditProfileViewModel
     [DataType(DataType.Upload)]
     public IFormFile? CVFile { get; set; }  // For file upload
 
-    public string? CV { get; set; }  // Keep this to store the path/URL if needed; }
+    public string? CV { get; set; }  // Keep this to store the path/URL if needed
 
-    [MaxLength(250, ErrorMessage = "Profile picture URL cannot exceed 250 characters")]
-    [Display(Name = "Profile Picture URL")]
-    public string? ProfilePicture { get; set; }
+    [Display(Name = "Profile Picture")]
+    [DataType(DataType.Upload)]
+    public IFormFile? ProfilePictureFile { get; set; } //For profile picture upload
+    public string? ProfilePicture { get; set; } //Keep this to store the path/URL if needed
 
     [Phone(ErrorMessage = "Please enter a valid phone number")]
     [MaxLength(20, ErrorMessage = "Phone number cannot exceed 20 characters")]
