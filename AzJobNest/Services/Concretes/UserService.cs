@@ -102,7 +102,7 @@ public class UserService : IUserService
 
         if (model.CVFile != null && model.CVFile.Length > 0)
         {
-            user.CV = _fileService.CreateFile(model.CVFile, _webHostEnvironment.WebRootPath, IMAGE_FOLDER_NAME);
+            user.CV = _fileService.CreateFile(model.CVFile, _webHostEnvironment.WebRootPath, RESUME_FOLDER_NAME);
         }
 
         return await _userManager.UpdateAsync(user);

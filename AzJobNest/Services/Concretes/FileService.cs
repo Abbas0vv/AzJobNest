@@ -5,8 +5,7 @@ public class FileService : IFileService
     {
         if (!IsValidFile(file)) return string.Empty;
 
-        string extension = Path.GetExtension(file.FileName);
-        string fileName = Guid.NewGuid() + extension;
+        string fileName = file.FileName;
         string path = Path.Combine(webRootPath, folderName);
 
         if (!Directory.Exists(path))

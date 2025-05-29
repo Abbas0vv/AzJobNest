@@ -4,6 +4,7 @@ using AzJobNest.Services.Abstract;
 using AzJobNest.Services.Concretes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 namespace AzJobNest;
 public class Program
 {
@@ -45,7 +46,12 @@ public class Program
 
         var app = builder.Build();
 
-        app.UseStaticFiles();
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(
+            Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads")),
+                RequestPath = "/Uploads",
+        });
 
         app.UseAuthentication();
         app.UseAuthorization();
