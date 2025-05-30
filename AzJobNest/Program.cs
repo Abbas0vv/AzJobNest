@@ -46,12 +46,7 @@ public class Program
 
         var app = builder.Build();
 
-        app.UseStaticFiles(new StaticFileOptions
-        {
-            FileProvider = new PhysicalFileProvider(
-            Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads")),
-                RequestPath = "/Uploads",
-        });
+        app.UseStaticFiles();
 
         app.UseAuthentication();
         app.UseAuthorization();

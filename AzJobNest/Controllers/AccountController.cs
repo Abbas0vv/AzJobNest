@@ -110,7 +110,8 @@ public class AccountController : Controller
             return View(model);
         }
 
-        return RedirectToAction("Index", "Home");
+        TempData["SuccessMessage"] = "Profile updated successfully!";
+        return View(model);
     }
 
     [HttpGet]

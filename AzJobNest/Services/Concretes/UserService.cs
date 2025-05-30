@@ -93,20 +93,27 @@ public class UserService : IUserService
         user.GitHubUrl = model.GitHubUrl;
         user.Gender = model.Gender;
         user.BirthDate = model.BirthDate;
+        user.ProjectName = model.ProjectName;
+        user.ProjectDescription = model.ProjectDescription;
+        user.ProjectSource = model.ProjectSource;
+        user.RepositoryUrl = model.RepositoryUrl;
+        user.DeploymentUrl = model.DeploymentUrl;
 
         // Handle file uploads
-        if (model.ProfilePictureFile != null && model.ProfilePictureFile.Length > 0)
+        if (model.ProfilePictureFile is not null && model.ProfilePictureFile.Length > 0)
         {
             user.ProfilePicture = _imageService.CreateImage(model.ProfilePictureFile, _webHostEnvironment.WebRootPath, IMAGE_FOLDER_NAME);
         }
 
-        if (model.CVFile != null && model.CVFile.Length > 0)
+        if (model.CVFile is not null && model.CVFile.Length > 0)
         {
             user.CV = _fileService.CreateFile(model.CVFile, _webHostEnvironment.WebRootPath, RESUME_FOLDER_NAME);
         }
 
         return await _userManager.UpdateAsync(user);
     }
+
+
     public async Task CreateRole()
     {
         foreach (var item in Enum.GetValues(typeof(Role)))
