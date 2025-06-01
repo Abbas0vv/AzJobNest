@@ -84,8 +84,6 @@ public class AccountController : Controller
             LastName = user.LastName,
             Email = user.Email,
             PhoneNumber = user.PhoneNumber,
-            LinkedInUrl = user.LinkedInUrl,
-            GitHubUrl = user.GitHubUrl,
             Gender = user.Gender,
             BirthDate = user.BirthDate,
             ProfilePicture = user.ProfilePicture,
@@ -112,6 +110,22 @@ public class AccountController : Controller
 
         TempData["SuccessMessage"] = "Profile updated successfully!";
         return View(model);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> AddProject()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddProject(CreateProjectViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+
+
+        return RedirectToAction(nameof(EditProfile));
     }
 
     [HttpGet]

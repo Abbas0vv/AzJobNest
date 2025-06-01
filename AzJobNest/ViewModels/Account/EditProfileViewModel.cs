@@ -62,26 +62,4 @@ public class EditProfileViewModel
     [Display(Name = "Birth Date")]
     public DateTime? BirthDate { get; set; }
 
-    // Project properties
-    public int? ProjectId { get; set; }
-
-    [Required]
-    [Display(Name = "Project Name")]
-    public string ProjectName { get; set; }
-
-    [Display(Name = "Project Description")]
-    public string ProjectDescription { get; set; }
-
-    [Required]
-    [Url]
-    [Display(Name = "Repository URL")]
-    public string RepositoryUrl { get; set; }
-
-    [Url]
-    [Display(Name = "Deployment URL")]
-    public string DeploymentUrl { get; set; }
-
-    [Required]
-    [Display(Name = "Source")]
-    public string ProjectSource { get; set; }
 }

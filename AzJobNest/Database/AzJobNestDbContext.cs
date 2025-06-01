@@ -8,4 +8,5 @@ public class AzJobNestDbContext : IdentityDbContext<AzJobNestUser>
 {
     public AzJobNestDbContext(DbContextOptions<AzJobNestDbContext> options) : base(options) { }
 
+    public DbSet<Project> Projects { get; set; } 
 }

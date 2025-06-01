@@ -13,7 +13,7 @@
 					<h4 class="mb-0 text-center">Complete Your Profile</h4>
 				</div>
 				<div class="profile-card-body p-4">
-					<form method="post" enctype="multipart/form-data">
+					<form method="post" enctype="multipart/form-data" asp-action="E">
 						<!-- Profile Picture Section -->
 						<div class="mb-4 text-center">
 							<div class="position-relative d-inline-block">
@@ -176,17 +176,16 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<form id="projectForm" method="post">
-								<input type="hidden" asp-for="ProjectId" id="projectId" />
+							<form id="projectForm" method="post" asp-action="">
 								<div class="mb-3">
 									<label asp-for="Name" class="form-label">Project Name</label>
 									<input asp-for="Name" type="text" class="form-control" id="projectName" required>
 									<span asp-validation-for="Name" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
-									<label asp-for="ProjectDescription" class="form-label">Description (Optional)</label>
-									<textarea asp-for="ProjectDescription" class="form-control" id="projectDescription" rows="2"></textarea>
-									<span asp-validation-for="ProjectDescription" class="text-danger"></span>
+									<label asp-for="tDescription" class="form-label">Description (Optional)</label>
+									<textarea asp-for="Description" class="form-control" id="projectDescription" rows="2"></textarea>
+									<span asp-validation-for="Description" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label asp-for="RepositoryUrl" class="form-label">Repository URL</label>
@@ -199,15 +198,15 @@
 									<span asp-validation-for="DeploymentUrl" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
-									<label asp-for="ProjectSource" class="form-label">Source</label>
-									<select asp-for="ProjectSource" class="form-select" id="projectSource" required>
+									<label asp-for="Source" class="form-label">Source</label>
+									<select asp-for="Source" class="form-select" id="projectSource" required>
 										<option value="">Select Source</option>
 										<option value="GitHub">GitHub</option>
 										<option value="GitLab">GitLab</option>
 										<option value="Bitbucket">Bitbucket</option>
 										<option value="Other">Other</option>
 									</select>
-									<span asp-validation-for="ProjectSource" class="text-danger"></span>
+									<span asp-validation-for="Source" class="text-danger"></span>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -233,13 +232,13 @@
 						<div class="d-flex justify-content-between align-items-center mt-2">
 							@if (!string.IsNullOrEmpty(Model.RepositoryUrl))
 							{
-								<a href="@Model.RepositoryUrl" target="_blank" class="btn btn-sm btn-outline-dark">
+								<a href="@project.RepositoryUrl" target="_blank" class="btn btn-sm btn-outline-dark">
 									<i class="fab fa-github"></i> Repository
 								</a>
 							}
 							@if (!string.IsNullOrEmpty(Model.DeploymentUrl))
 							{
-								<a href="@Model.DeploymentUrl" target="_blank" class="btn btn-sm btn-outline-primary">
+								<a href="@project.DeploymentUrl" target="_blank" class="btn btn-sm btn-outline-primary">
 									<i class="fas fa-external-link-alt"></i> View Live
 								</a>
 							}

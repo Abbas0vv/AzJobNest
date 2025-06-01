@@ -93,11 +93,6 @@ public class UserService : IUserService
         user.GitHubUrl = model.GitHubUrl;
         user.Gender = model.Gender;
         user.BirthDate = model.BirthDate;
-        user.ProjectName = model.ProjectName;
-        user.ProjectDescription = model.ProjectDescription;
-        user.ProjectSource = model.ProjectSource;
-        user.RepositoryUrl = model.RepositoryUrl;
-        user.DeploymentUrl = model.DeploymentUrl;
 
         // Handle file uploads
         if (model.ProfilePictureFile is not null && model.ProfilePictureFile.Length > 0)
