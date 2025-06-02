@@ -2,7 +2,6 @@
 using AzJobNest.Helpers.Enums;
 using AzJobNest.Services.Abstract;
 using AzJobNest.ViewModels.Account;
-using AzJobNest.ViewModels.Account.Advanced;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -73,13 +72,11 @@ public class UserService : IUserService
     {
         return await _userManager.GetUserAsync(user);
     }
-    public async Task<IdentityResult> UpdateProfileAsync(ClaimsPrincipal userPrincipal, EditProfileViewModel model)
+    public async Task<IdentityResult> UpdateProfileAsync(ClaimsPrincipal userPrincipal, UpdateProfileViewModel model)
     {
         var user = await _userManager.GetUserAsync(userPrincipal);
-        if (user == null)
-        {
+        if (user is null)
             return IdentityResult.Failed(new IdentityError { Description = "User not found" });
-        }
 
         // Update basic info
         user.UserName = model.UserName;

@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AzJobNest.ViewModels;
+namespace AzJobNest.ViewModels.Project;
 
-public class UpdaterojectViewModel
+public class UpdateProjectViewModel
 {
     [Required]
     [Display(Name = "Project Name")]
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     [Display(Name = "Project Description")]
     public string? Description { get; set; }
@@ -14,7 +14,7 @@ public class UpdaterojectViewModel
     [Required]
     [Url]
     [Display(Name = "Repository URL")]
-    public string? RepositoryUrl { get; set; }
+    public string RepositoryUrl { get; set; }
 
     [Url]
     [Display(Name = "Deployment URL")]
@@ -22,5 +22,5 @@ public class UpdaterojectViewModel
 
     [Required]
     [Display(Name = "Source")]
-    public string? Source { get; set; }
+    public string Source { get; set; }
 }

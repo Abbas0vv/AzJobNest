@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AzJobNest.ViewModels;
+namespace AzJobNest.ViewModels.Project;
 
 public class CreateProjectViewModel
 {

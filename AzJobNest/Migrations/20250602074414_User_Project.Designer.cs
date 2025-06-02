@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AzJobNest.Migrations
 {
     [DbContext(typeof(AzJobNestDbContext))]
-    [Migration("20250529224431_UserProject")]
-    partial class UserProject
+    [Migration("20250602074414_User_Project")]
+    partial class User_Project
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,7 +128,7 @@ namespace AzJobNest.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("AzJobNest.Database.DomainModels.UserProject", b =>
+            modelBuilder.Entity("AzJobNest.Database.DomainModels.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,12 +136,13 @@ namespace AzJobNest.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AzJobNestUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("DeploymentUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -156,13 +157,9 @@ namespace AzJobNest.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AzJobNestUserId");
 
                     b.ToTable("Projects");
                 });
@@ -300,15 +297,11 @@ namespace AzJobNest.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AzJobNest.Database.DomainModels.UserProject", b =>
+            modelBuilder.Entity("AzJobNest.Database.DomainModels.Project", b =>
                 {
-                    b.HasOne("AzJobNest.Database.DomainModels.AzJobNestUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                    b.HasOne("AzJobNest.Database.DomainModels.AzJobNestUser", null)
+                        .WithMany("Projects")
+                        .HasForeignKey("AzJobNestUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -360,6 +353,11 @@ namespace AzJobNest.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AzJobNest.Database.DomainModels.AzJobNestUser", b =>
+                {
+                    b.Navigation("Projects");
                 });
 #pragma warning restore 612, 618
         }

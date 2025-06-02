@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AzJobNest.Database.Abstracts;
+﻿using AzJobNest.Database.Abstracts;
 
 namespace AzJobNest.Database.DomainModels;
 

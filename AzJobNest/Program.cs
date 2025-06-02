@@ -4,7 +4,7 @@ using AzJobNest.Services.Abstract;
 using AzJobNest.Services.Concretes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
+
 namespace AzJobNest;
 public class Program
 {
@@ -23,6 +23,7 @@ public class Program
         builder.Services.AddScoped<IImageService, ImageService>();
         builder.Services.AddScoped<IFileService, FileService>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IProjectService, ProjectService>();
 
         builder.Services.Configure<IdentityOptions>(options =>
         {

@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AzJobNest.Database.DomainModels;
 using AzJobNest.Helpers.Enums;
-namespace AzJobNest.ViewModels.Account.Advanced;
+namespace AzJobNest.ViewModels.Account;
 
-public class EditProfileViewModel
+public class UpdateProfileViewModel
 {
     [Required]
     [MinLength(3)]
